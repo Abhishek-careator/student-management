@@ -1,0 +1,60 @@
+<kendo-card-header class="k-hbox">
+  <div>
+    <h1
+      kendoCardTitle
+      style="
+        font-size: 2rem;
+        font-weight: 800;
+        text-align: center;
+        box-shadow: 0px 2px 2px #ccc;
+        padding: 1.5rem;
+      "
+    >
+      Student management
+    </h1>
+  </div>
+</kendo-card-header>
+
+<kendo-upload [autoUpload]="false" (upload)="onUpload($event)"> </kendo-upload>
+
+<kendo-grid
+  [data]="gridView"
+  [resizable]="true"
+  [height]="450"
+  [pageSize]="pageSize"
+  [skip]="skip"
+  [pageable]="true"
+  (pageChange)="pageChange($event)"
+  (edit)="editHandler($event)"
+  (save)="saveHandler($event)"
+  (add)="addHandler($event)"
+  (cancel)="cancelHandler($event)"
+  (remove)="removeHandler($event)"
+>
+  <ng-template kendoGridToolbarTemplate>
+    <button kendoGridAddCommand class="k-button add">Add Student</button>
+  </ng-template>
+  <kendo-grid-column field="name" title="Name"> </kendo-grid-column>
+  <kendo-grid-column field="email" title="Email"> </kendo-grid-column>
+  <kendo-grid-column field="age" title="Age"> </kendo-grid-column>
+  <kendo-grid-column field="dob" title="DOB"> </kendo-grid-column>
+  <kendo-grid-column field="id" title="id" [hidden]="true"> </kendo-grid-column>
+
+  <kendo-grid-command-column title="Action">
+    <ng-template kendoGridCellTemplate let-isNew="isNew">
+      <button kendoGridEditCommand [primary]="true" class="k-button update">
+        Edit
+      </button>
+
+      <button kendoGridRemoveCommand class="k-button delete">Delete</button>
+
+      <button kendoGridSaveCommand class="k-button update">
+        {{ isNew ? "Add" : "Update" }}
+      </button>
+
+      <button kendoGridCancelCommand class="k-button delete">
+        {{ isNew ? "Discard changes" : "Cancel" }}
+      </button>
+    </ng-template>
+  </kendo-grid-command-column>
+</kendo-grid>
